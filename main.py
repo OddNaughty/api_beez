@@ -2,6 +2,7 @@ import json
 import time
 import logging
 import logging.config
+import rasp_data
 from raspberry import MyPi
 
 
@@ -10,27 +11,12 @@ def launch_logger():
         config = json.load(f)
     logging.config.dictConfig(config)
 
-launch_logger()
-
-logger = logging.getLogger("api_beez")
-
 
 def init():
+    launch_logger()
+    logger = logging.getLogger("api_beez")
     logger.debug("Raspberry Pi initialization")
     return MyPi()
-
-
-def save_datas(datas):
-    with open("sensor_backup.json") as file:
-        existing = json.load(file)
-    print(existing)
-    with open("sensor_backup.json", "w") as file:
-        file.write(json.dumps({"lol": 45}, sort_keys=True, indent=2))
-    return datas
-
-
-def send_datas(datas):
-    logger.debug(f"Sending motherfucking datas: {datas}")
 
 
 def main():
@@ -40,11 +26,10 @@ def main():
         new_time = time.time()
         if old_time + 2 < new_time:
             to_send = raspy.sensor_datas()
-            saved = save_datas(to_send)
-            sended = send_datas(to_send)
+            saved = rasp_data.save_datas(to_send)
+            sended = rasp_data.send_datas(to_send)
             old_time = time.time()
-    return 0
-
+    # return 0
 
 if __name__ == '__main__':
     main()
