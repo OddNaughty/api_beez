@@ -1,0 +1,15 @@
+{
+  "raspberry": {
+    "id": 1,
+    "sensors": [
+      "DS18B20"
+    ]
+  },
+  "app": {
+    "somei": {
+      "endpoint": "http://localhost:9000/",
+      "key": "lol",
+      "secret": "meh"
+    }
+  }
+}

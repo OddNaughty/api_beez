@@ -8,8 +8,8 @@ class MyPi(object):
     # 'magic method' propre à toutes les classes (ca commence et finit par '__').
     # En l'occurence init prend des parametres et permet de les relier à l'instance via self
     def __init__(self):
-        self.config = json.load(open("my_pi_settings.json", "r"))
-        self.sensors = self.sensor_matches(self.config['sensors'])
+        self.config = json.load(open("config_settings.json", "r"))
+        self.sensors = self.sensor_matches(self.config['raspberry']['sensors'])
 
     # Décorateur qui permet de faire des méthodes classe et non d'instance
     @classmethod
