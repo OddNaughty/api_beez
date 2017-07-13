@@ -23,10 +23,10 @@ def save_datas(datas):
         existing = {}
     new_entry = {datetime.datetime.now().isoformat(): datas}
     # We could try to save them by day, with hour as key ? :o
-    datas = {**existing, **new_entry} if existing else new_entry
+    new_datas = {**existing, **new_entry} if existing else new_entry
     file.close()
     file = open("sensor_backup.json", "w")
-    file.write(json.dumps(datas, sort_keys=True, indent=2))
+    file.write(json.dumps(new_datas, sort_keys=True, indent=2))
     return datas
 
 

@@ -15,11 +15,11 @@ class MyPi(object):
     @classmethod
     def sensor_matches(cls, sensor_config):
         matches = {
-            "DS18B20": TempSensor("DS18B20")
+            "temp": TempSensor
         }
         sensors = []
         for sensor in sensor_config:
-            sensors.append(matches[sensor])
+            sensors.append(matches[sensor["type"]](**sensor))
         # La ligne en dessous permet de faire la meme chose que la boucle au dessus: -> List Comprehension
         # sensors = [matches[sensor] for sensor in sensor_config]
         return sensors
@@ -41,8 +41,8 @@ class Sensor(object):
 
 class TempSensor(Sensor):
     def __init__(self, name, *args, **kwargs):
-        logger.debug(f'Temp Sensor {name} just initialized')
-        # print(f"Temp Sensor {name} just initialized")
+        logger.debug(f'Temp Sensor {name} with channel {kwargs["channel"]} just initialized')
+        self.channel = kwargs["channel"]
         super().__init__(name, *args, **kwargs)
 
     def get_data(self):
